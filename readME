@@ -1,25 +1,117 @@
 YOGO ACTION RECOGNITION MODEL
 
-Why I choose this?
+1. Why I choose this?
 
-"I chose to focus on yoga action recognition for several compelling reasons:
+    "I chose to focus on yoga action recognition for several compelling reasons:
 
-1. Technology Integration: 
-    The integration of computer vision and action recognition technology showcases the power of technology in enhancing traditional practices, including health and fitness.
+    1. Technology Integration: 
+        The integration of computer vision and action recognition technology showcases the power of technology in enhancing traditional practices, including health and fitness.
 
-2. Health and Well-being: 
-    Yoga is renowned for its holistic health benefits, including physical fitness, stress reduction, and mental clarity. I wanted to leverage technology to promote these well-being advantages.
+    2. Health and Well-being: 
+        Yoga is renowned for its holistic health benefits, including physical fitness, stress reduction, and mental clarity. I wanted to leverage technology to promote these well-being advantages.
 
-3. Accessibility: 
-    Yoga should be accessible to everyone, regardless of location or resources. By developing a yoga action recognition system, I aimed to make yoga practice accessible to a wider audience, especially those without easy access to yoga instructors.
+    3. Accessibility: 
+        Yoga should be accessible to everyone, regardless of location or resources. By developing a yoga action recognition system, I aimed to make yoga practice accessible to a wider audience, especially those without easy access to yoga instructors.
 
-4. Educational Tool: 
-    I wanted to create an educational tool for yoga practitioners. By offering insights into each pose and guiding users toward proper form, the project enhances users' understanding of yoga principles.
+    4. Educational Tool: 
+        I wanted to create an educational tool for yoga practitioners. By offering insights into each pose and guiding users toward proper form, the project enhances users' understanding of yoga principles.
 
-5. Progress Tracking: 
-    Tracking progress can be motivating and help individuals stay committed to their yoga practice. The system allows users to monitor their improvements over time.
+    5. Progress Tracking: 
+        Tracking progress can be motivating and help individuals stay committed to their yoga practice. The system allows users to monitor their improvements over time.
+
+    Considering these benefits and the positive impact it can have on individuals' lives, I chose to develop a yoga action recognition system over other options, as it aligns with my passion for health, well-being, and technology."
 
 
-Considering these benefits and the positive impact it can have on individuals' lives, I chose to develop a yoga action recognition system over other options, as it aligns with my passion for health, well-being, and technology."
+2. Why Action Recognition is Useful?
+    
+    Action recognition and object detection are two different tasks in computer vision, and both serve important purposes. The usefulness of action recognition lies in its ability to understand and interpret the actions and activities taking place within a video or a sequence of images, whereas object detection focuses on identifying and localizing specific objects within an image or video frame.
+    In human-computer interaction, action recognition can be used to enhance user experiences by allowing gestures or actions as input commands. In automation and robotics, it can be used to understand and respond to human actions and intent.
+
+3. The Model's properties and any literature review you did.
+
+    I use mediapipe in this assignment. MediaPipe had various models and components for different computer vision tasks, including pose estimation.To provide more insight into the general properties of a pose estimation model and some literature review up to my last update, here's an overview:
+        
+    Key point detection in turn belongs to a major computer vision branch called Image recognition, other broad classes of vision that belong in this branch are Classification, Detection, and Segmentation.
+
+    Pose Estimation Model Properties:
+        1. Key Point Detection: 
+            Pose estimation models aim to detect key points on a human body, such as the locations of joints and body parts. These key points are typically represented as (x, y) coordinates in an image.
+
+        2. Real-Time Inference: 
+            Many pose estimation models, including those in MediaPipe, are designed for real-time inference, making them suitable for applications like gesture recognition, sports analysis, and yoga pose recognition.
+
+        3. Lightweight: 
+            Models optimized for real-time applications are often lightweight and efficient, making them suitable for deployment on resource-constrained devices like smartphones and embedded systems.
+        
+        4. Variety of Body Parts: 
+            Pose estimation models can detect and track a variety of body parts, including head, shoulders, elbows, wrists, hips, knees, and ankles.
+
+    Literature Review:
+        Pose estimation is a well-studied field in computer vision and has seen significant advancements over the years. Some of the popular approaches and research areas in pose estimation include:
+
+            1. Deep Learning Models: 
+                Deep learning, particularly convolutional neural networks (CNNs), has played a significant role in advancing pose estimation. Models like OpenPose, PoseNet, and Hourglass networks have been influential.
+
+            2. 2D vs. 3D Pose Estimation: 
+                Pose estimation can be 2D (in image coordinates) or 3D (in world coordinates). 2D models estimate the 2D positions of body parts, while 3D models aim to estimate the 3D positions. Both have their use cases.
+
+            3. Datasets: 
+                Researchers often use datasets like COCO (Common Objects in Context) and MPII Human Pose for training and evaluating pose estimation models. These datasets contain images with annotated poses.
 
 
+            4. Transfer Learning: 
+                Transfer learning techniques, where models pretrained on a large dataset are fine-tuned for specific tasks, have been effective in pose estimation.
+
+4. Why you used it? how did it compare with other Models?
+
+    Pose Detection or Pose Estimation is a very popular problem in computer vision, in fact, it belongs to a broader class of computer vision domain called key point estimation. 
+
+    MediaPipe provides pre-trained models and tools for various computer vision and machine learning tasks, including pose estimation, object tracking, and facial recognition. Developers and researchers use MediaPipe for a wide range of applications due to its ease of use, real-time performance, and cross-platform support.
+
+    MediaPipe's key advantages and comparisons to other models include:
+
+        1. Ease of Integration: 
+            MediaPipe offers a user-friendly, high-level API, making it accessible to developers who may not have extensive experience in machine learning or computer vision. This ease of integration can save development time and resources.
+
+        2. Real-Time Performance: 
+            MediaPipe is optimized for real-time applications and can provide high frame rates, which is essential for applications like augmented reality, gesture recognition, and video analysis.
+
+        3. Pre-trained Models: 
+            MediaPipe provides pre-trained models for a variety of tasks, reducing the need for extensive data collection and model training. This is particularly valuable for developers who want to quickly add computer vision features to their projects.
+
+    When comparing MediaPipe to other models, it's important to consider factors like the specific use case, the availability of labeled data. For instance, if I require highly specialized models for a unique application, I might need to build custom models from scratch using deep learning frameworks like TensorFlow or PyTorch. On the other hand, if my application aligns with the capabilities of MediaPipe's pre-trained models, it can be a more efficient and straightforward solution.
+
+5.  Your process of creating the Model?
+
+    1. Initialize the Pose Detection Model
+        The first thing that I need to do is initialize the pose class using the mp.solutions.pose syntax and then we will call the setup function mp.solutions.pose.Pose() with the arguments.
+
+    2. Perform Pose Detection
+        Now I pass the image to the pose detection machine learning pipeline by using the function mp.solutions.pose.Pose().process(). But the pipeline expects the input images in RGB color format so first we will have to convert the sample image from BGR to RGB format using the function cv2.cvtColor() as OpenCV reads images in BGR format (instead of RGB).
+
+        After performing the pose detection, we will get a list of thirty-three landmarks representing the body joint locations of the prominent person in the image. Each landmark has:
+        X,Y,Z and visibility
+     
+    3. Create a Pose Detection Function
+        Now we will put all this together to create a function that will perform pose detection on an image and visualize the results or return the results depending upon the passed arguments.
+
+    4. Pose Classification with Angle Heuristics
+        I have learned to perform pose detection, now I will level up classifying by different yoga poses using the calculated angles of various joints. I was first detect the pose landmarks and then use them to compute angles between joints and depending upon those angles I was recognize the yoga pose of the prominent person in an 
+    
+    5. Create a Function to Perform Pose Classification
+        After that I create a function that will be capable of classifying different yoga poses using the calculated angles of various joints. The function will be capable of identifying the following yoga poses:
+
+        Warrior II Pose:
+            Around 180° at both elbows
+            Around 90° angle at both shoulders
+            Around 180° angle at one knee
+            Around 90° angle at the other knee
+
+        T Pose:
+            Around 180° angle at one knee
+            Around 35° (if right knee) or 335° (if left knee) angle at the other knee
+        
+        Tree Pose:
+            Around 180° at both elbows
+            Around 90° angle at both shoulders
+            Around 180° angle at both knees
